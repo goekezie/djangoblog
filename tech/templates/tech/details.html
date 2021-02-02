@@ -1,0 +1,136 @@
+{% extends 'dev/base.html' %}
+{% block content %}
+<section>
+    <div class="col text-center  text-white">
+
+        <h2>
+            {{ techpost.title }}
+        </h2>
+        <h2>
+            -----{{ techpost.created_on|date:'F jS Y' }}----
+        </h2>
+        <h2>
+            {{ techpost.content|safe }}
+        </h2>
+    </div>
+</section>
+<div>
+    {% load social_share %}
+    <div class="row ">
+      <div class="my-2">
+        <button class="btn btn-dark mx-2">
+          {% post_to_facebook "url 'details' post.slug" "Post to Facebook" %}
+        </button>
+      </div>
+      <div class="my-2">
+        <button class="btn btn-dark mx-2">
+          {% post_to_twitter post.title  "url 'details' post.slug"  "Post to Twitter" %}
+        </button>
+      </div>
+      <div class="my-2">
+        <button class="btn btn-dark mx-2">
+          {% post_to_reddit post.title  "url 'details' post.slug"  "Post to Reddit" %}
+        </button>
+      </div>
+      <div class="my-2">
+        <button class="btn btn-dark px-2">
+          {% post_to_whatsapp  "url 'details' post.slug"  "Share via WhatsApp" %} 
+        </button>
+      </div>
+    </div>
+      </div>
+    
+    <hr>
+    <div class="comments container-fluid ">
+      <div class="row bg-secondary  my-2">
+          <p class="text-dark">
+            <h2 class="text-dark">
+             <strong>({{ comments.count }})Comments</strong>      
+            </h2>
+          </p>
+      </div>
+    </div>  
+<div class="comments">
+    {% for comment in comments %}
+
+    <div class="comment">
+      <div class="row">
+        <div class="card bg-dark my-2 border-white">
+          <div class="card-horizontal">
+              <div class="img-square-wrapper">
+                  <img class="rounded-circle" src="{{ comment.image.url }} " alt="Card image cap" width="80px" height="80px">
+              </div>
+              <div class="card-body">
+                 
+                <div class="info"><strong>{{ comment.name }}</strong> | {{ comment.created_on }}</div>
+                <p>{{ comment.text|linebreaks }}</p>
+              </div>
+          </div>
+        </div>
+      </div>
+
+        {% for reply in comment.replies.all %}
+        <div class="row pl-5">
+          
+            <div class="card bg-dark my-2 border-white  ">
+              <div class="card-horizontal">
+                  <div class="img-square-wrapper">
+                      <img class="rounded-circle" src="{{ comment.image.url }} " alt="Card image cap" width="80px" height="80px">
+                  </div>
+                  <div class="card-body">
+                     
+                    <p class="info"> <strong>{{ reply.name }}</strong> | {{ reply.created_on }}</p>
+                    <p>{{ reply.text|linebreaks }}</p>
+                  </div>
+              </div>
+            </div>
+         
+       
+        </div>
+
+
+    {% endfor %}
+    {% load crispy_forms_tags %}
+    <p class="pl-5">
+        <button class="btn btn-primary " type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          Reply
+        </button>
+      </p>
+      <div class="collapse" id="collapseExample">
+        <div class="card card-body col-md-3 text-secondary">
+          <h6 class="text-danger">
+            Your email address will not be published. Required fields are marked *
+          </h6>
+            <form action="." method="post" id="Reply">
+                {{ comment_form | crispy }}
+                {% csrf_token %}
+                <!-- Hidden input for parent comment.id -->
+                <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                <input class="btn btn-primary" type="submit" value="Reply">
+            </form>
+        </div>
+      </div>
+
+    </div>
+{% empty %}
+    <p>No comments here yet</p>
+{% endfor %}
+{% load crispy_forms_tags %}
+<div class="card-body col-md-6 ">
+    <div class="col align-content-center">
+        <h3>Leave a comment</h3>
+        <h6 class="text-danger">
+          Your email address will not be published. Required fields are marked *
+        </h6>
+        <form method="post" style="margin-top: 1.3em;">
+          {{ comment_form | crispy }}
+          {% csrf_token %}
+          <button type="submit" class="btn btn-primary  btn-lg">Post Comment</button>
+        </form>
+    </div>
+
+  </div>
+</div>
+  
+
+{% endblock %}

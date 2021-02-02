@@ -1,0 +1,124 @@
+
+{% extends 'dev/base.html' %}
+{% block content %}
+
+<div class="container-fluid my-5  ">
+    <div class="row  justify-content-center">
+       <div class="col-md-7">
+        <h1 class="my-3 text-center text-dark">Movies </h1>
+        {% for moviepost in movieposts %}
+        <div class="card text-center bg-dark my-2 border-white">
+            <div class="card-header">
+                <a class="" href="{% url 'movie:details' moviepost.slug %}">
+               <h5>
+                {{ moviepost.title }}
+               </h5> 
+                </a>
+            </div>
+            <div class="card-body">
+              <img class="card-img-top" src="{{ moviepost.image.url }}" alt="Card image cap" width="100px" height="450px">
+              <p class="card-text">{{ moviepost.content|truncatechars:500|safe }}</p>
+              <a href="{% url 'movie:details' moviepost.slug %}" class="btn btn-secondary"> Read more.. </a>
+            </div>
+            <div class="card-footer text-muted">
+                {{ moviepost.created_on }}
+            </div>
+          </div>
+        {% endfor %}
+        
+       </div>
+           
+       
+
+       
+        <div class="col-md-3 text-center mt-5">
+            <h2>
+                <a class="text-white" href="{% url 'index' %}">dev</a>
+            </h2>
+            <!-- {{ moviepost.title }}
+            <br> -->
+            {% for post in posts %} 
+            <div class="card bg-dark my-2 border-white">
+                <div class="card-horizontal">
+                    <div class="img-square-wrapper">
+                        <img class="rounded-circle" src="{{ post.image.url }} " alt="Card image cap" width="80px" height="80px">
+                    </div>
+                    <div class="card-body">
+                        <a class="" href="{% url 'details' post.slug %}">
+                            <h6 class="card-title">{{ post.title }}</h6>
+                        </a>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">  {{ post.created_on }}</small>
+                </div>
+            </div>
+        
+            {% endfor %}
+            <br>
+            <h2>
+                <a class=" text-white" href="{% url 'tech:tech' %}" >Tech</a>
+            </h2>
+
+            {% for techpost in techposts %}
+            <div class="card bg-dark my-2 border-white">
+                <div class="card-horizontal">
+                    <div class="img-square-wrapper">
+                        <img class="rounded-circle" src="{{ techpost.image.url }} " alt="Card image cap" width="80px" height="80px">
+                    </div>
+                    <div class="card-body">
+                        <a class="" href="{% url 'tech:details' techpost.slug %}">
+                            <h6 class="card-title">  {{ techpost.title }} </h6>
+                        </a>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">  {{ techpost.created_on }}</small>
+                </div>
+            </div>
+        
+
+            {% endfor %}
+            <div class="paypal my-5">
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+                    <input type="hidden" name="cmd" value="_s-xclick" />
+                    <input type="hidden" name="hosted_button_id" value="5BZLD9VBRB46J" />
+                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                    <img alt="" border="0" src="https://www.paypal.com/en_NG/i/scr/pixel.gif" width="1" height="1" />
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% if movieposts.paginator.num_pages > 1 %}
+<nav aria-label="...">
+    <ul class="pagination justify-content-center pb-2">
+        {% if mvieposts.has_previous %}
+      <li class="page-item disabled">
+        
+        <a href="?page={{ movieposts.previous_page_number }}">
+            <span class="page-link">Previous</span>
+        </a>
+      </li>
+      {% endif %}
+      <li class="page-item"><a class="page-link" href="#">{{ movieposts.number }}</a></li>
+      <li class="page-item active">
+        <span class="page-link">
+          of
+          <!-- <span class="sr-only">(current)</span> -->
+        </span>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">{{ movieposts.paginator.num_pages }}</a></li>
+      {% if movieposts.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ movieposts.next_page_number }}">Next</a>
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
+  {% endif %}
+
+{% endblock %}
+
