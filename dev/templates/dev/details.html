@@ -16,30 +16,34 @@
         </div>
     </div>
 </section>
-<div>
+
+<div class="share ">
     {% load social_share %}
-<div class="row ">
-  <div class="my-2">
-    <button class="btn btn-dark mx-2">
-      {% post_to_facebook "url 'details' post.slug" "Share on Facebook" %}
-    </button>
-  </div>
-  <div class="my-2">
-    <button class="btn btn-dark mx-2">
-      {% post_to_twitter post.title  "url 'details' post.slug"  "Tweet this" %}
-    </button>
-  </div>
-  <div class="my-2">
-    <button class="btn btn-dark mx-2">
-      {% post_to_reddit post.title  "url 'details' post.slug"  "Post on Reddit" %}
-    </button>
-  </div>
-  <div class="my-2">
-    <button class="btn btn-dark px-2">
-      {% post_to_whatsapp  "url 'details' post.slug"  "Share on WhatsApp" %} 
-    </button>
-  </div>
-</div>
+    <div class="col align-content-md-center">
+      <div class="row justify-content-center ">
+        <div class="my-2">
+          <button class="btn btn-dark mx-2">
+            {% post_to_facebook "url 'details' post.slug" "Share on Facebook" %}
+          </button>
+        </div>
+        <div class="my-2">
+          <button class="btn btn-dark mx-2">
+            {% post_to_twitter post.title  "url 'details' post.slug"  "Tweet this" %}
+          </button>
+        </div>
+        <div class="my-2">
+          <button class="btn btn-dark mx-2">
+            {% post_to_reddit post.title  "url 'details' post.slug"  "Post on Reddit" %}
+          </button>
+        </div>
+        <div class="my-2">
+          <button class="btn btn-dark px-2">
+            {% post_to_whatsapp  "url 'details' post.slug"  "Share on WhatsApp" %} 
+          </button>
+        </div>
+      </div>
+    </div>
+
   </div>
 
 <hr>
@@ -53,7 +57,8 @@
   </div>
 </div>    
 
-<div class="comments">
+<div class="comments justify-content-center text-justify ">
+  <div class="col-md-8 container-fluid  ">
     {% for comment in comments %}
 
     <div class="comment">
@@ -119,7 +124,7 @@
     <p>No comments here yet</p>
 {% endfor %}
 {% load crispy_forms_tags %}
-<div class="card-body col-md-6 ">
+<div class="card-body col-md-auto">
     <div class="col align-content-center">
         <h3>Leave a comment</h3>
         <h6 class="text-danger">
@@ -133,6 +138,8 @@
     </div>
 
   </div>
+  </div>
+
 </div>
   
 
