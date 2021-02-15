@@ -13,6 +13,8 @@ from .forms import CommentForm
 # Homepage.
 def index(request):
     posts = Post.objects.all()
+    eposts = Post.objects.order_by('-created_on')[:1]   #First post header
+    rposts = Post.objects.order_by('-created_on')[:3]  #recent posts
     paginator = Paginator(posts, 6)
     page = request.GET.get('page')
     posts = paginator.get_page(page)
@@ -27,7 +29,7 @@ def index(request):
     page = request.GET.get('page')
     techposts = tpaginator.get_page(page)
 
-    return render(request, "dev/index.html", {"posts":posts, "movieposts":movieposts, "techposts":techposts})
+    return render(request, "dev/index.html", {"posts":posts, "movieposts":movieposts, "techposts":techposts, "eposts":eposts, "rposts":rposts})
 
 
 
@@ -35,6 +37,7 @@ def index(request):
 def details(request, slug):
     post = get_object_or_404(Post, slug=slug)
     comments = post.comments.filter(approved_comment=True,  parent__isnull=True )
+    totalcomments = post.comments.filter(approved_comment=True)
     new_comment = None
     if request.method == 'POST':
         comment_form = CommentForm(data=request.POST)
@@ -55,7 +58,7 @@ def details(request, slug):
                     reply_comment = comment_form.save(commit=False)
                     # assign parent_obj to replay comment
                     reply_comment.parent = parent_obj
-                 
+               
             # Create Comment object but don't save to database yet
             new_comment = comment_form.save(commit=False)
             # Assign the current post to the comment
@@ -65,7 +68,7 @@ def details(request, slug):
             return HttpResponseRedirect(post.get_absolute_url())
     else:
         comment_form = CommentForm()
-    return render(request, "dev/details.html", {"post":post, "comments":comments, "new_comment":new_comment, "comment_form":comment_form})
+    return render(request, "dev/details.html", {"post":post, "comments":comments, "new_comment":new_comment, "comment_form":comment_form, "totalcomments":totalcomments})
     #details comment
     
 

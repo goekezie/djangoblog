@@ -10,7 +10,7 @@
             <h2>
             -----{{ post.created_on|date:'F jS Y' }}----
             </h2>
-            <h2>
+            <h2 class="detail text-wrap text-justify">
             {{ post.content|safe }}
             </h2>
         </div>
@@ -20,27 +20,70 @@
 <div class="share ">
     {% load social_share %}
     <div class="col align-content-md-center">
-      <div class="row justify-content-center ">
-        <div class="my-2">
-          <button class="btn btn-dark mx-2">
-            {% post_to_facebook "url 'details' post.slug" "Share on Facebook" %}
-          </button>
-        </div>
-        <div class="my-2">
-          <button class="btn btn-dark mx-2">
-            {% post_to_twitter post.title  "url 'details' post.slug"  "Tweet this" %}
-          </button>
-        </div>
-        <div class="my-2">
-          <button class="btn btn-dark mx-2">
-            {% post_to_reddit post.title  "url 'details' post.slug"  "Post on Reddit" %}
-          </button>
-        </div>
-        <div class="my-2">
-          <button class="btn btn-dark px-2">
-            {% post_to_whatsapp  "url 'details' post.slug"  "Share on WhatsApp" %} 
-          </button>
-        </div>
+      <div class="row justify-content-center my-3 ">
+
+        <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#exampleModalCenter">
+  Share <i class="fas fa-share-alt"></i>
+</button>
+
+<!-- Modal -->
+<div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h5 class="modal-title text-light" id="exampleModalLongTitle">Share <i class="fas fa-share-alt"></i></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row justify-content-center bg-dark">
+          <div class="facebook my-1">
+            <button type="button" class="btn btn-dark shadow-sm btn-block">
+              <span class="badge badge-light">
+                <i class="fab fa-facebook">
+                  {% post_to_facebook "url 'details' post.slug" "Facebook" %}
+                </i>
+              </span>
+            </button>
+          </div>
+          <div class="twitter my-1">
+            <button class="btn btn-dark shadow-sm btn-block">
+              <span class="badge badge-light">
+                <i class="fab fa-twitter-square">
+                  {% post_to_twitter post.title  "url 'details' post.slug" "Twitter" %}
+                </i>
+              </span>
+            </button>
+  
+          </div>
+          <div class="Reddit my-1">
+            <button class="btn btn-dark shadow-sm btn-block">
+              <span class="badge badge-light">
+                <i class="fab fa-reddit-square">
+                  {% post_to_reddit post.title  "url 'details' post.slug" "Reddit"  %}
+                </i>
+              </span>
+            </button>
+          </div>
+          <div class="Whatsapp my-1">
+            <button class="btn btn-dark shadow-sm btn-block">
+              <span class="badge badge-light">
+                <i class="fab fa-whatsapp-square">
+                  {% post_to_whatsapp  "url 'details' post.slug"  "WhatsApp" %}
+                </i>
+              </span>
+            </button>
+          </div>
+        </div>        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Okay</button>
+      </div>
+    </div>
+  </div>
+</div>
       </div>
     </div>
 
@@ -49,11 +92,11 @@
 <hr>
 <div class="comments container-fluid ">
   <div class="row bg-secondary  my-2">
-      <p class="text-dark">
-        <h2 class="text-dark">
-         <strong>({{ comments.count }})Comments</strong>      
-        </h2>
-      </p>
+
+    <button type="button" class="btn btn-primary text-dark">
+      Comments <span class="badge badge-light">{{ totalcomments.count }}</span>
+    </button>
+
   </div>
 </div>    
 
@@ -100,7 +143,7 @@
     {% endfor %}
     {% load crispy_forms_tags %}
     <p class="pl-5">
-        <button class="btn btn-primary " type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
           Reply
         </button>
       </p>
@@ -114,14 +157,14 @@
                 {% csrf_token %}
                 <!-- Hidden input for parent comment.id -->
                 <input type="hidden" name="parent_id" value="{{ comment.id }}">
-                <input class="btn btn-primary" type="submit" value="Reply">
+                <input class="btn btn-primary btn-block" type="submit" value="Reply">
             </form>
         </div>
       </div>
 
     </div>
 {% empty %}
-    <p>No comments here yet</p>
+    <!-- <p>No comments here yet</p> -->
 {% endfor %}
 {% load crispy_forms_tags %}
 <div class="card-body col-md-auto">
@@ -133,7 +176,7 @@
         <form method="post" style="margin-top: 1.3em;">
           {{ comment_form | crispy }}
           {% csrf_token %}
-          <button type="submit" class="btn btn-primary  btn-lg">Post Comment</button>
+          <button type="submit" class="btn btn-primary btn-block btn-lg">Post Comment</button>
         </form>
     </div>
 

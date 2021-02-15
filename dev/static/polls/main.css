@@ -1,0 +1,23 @@
+
+.card-horizontal {
+    display: flex;
+    flex: 1 1 auto;
+}
+
+.height {
+    min-height: 70vh;
+}
+
+h1, h2, h3, h4, h5, h6, p, a {
+  font-family: DM Mono;
+}
+
+body {
+  width: fit-content;
+  block-size: fit-content
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
