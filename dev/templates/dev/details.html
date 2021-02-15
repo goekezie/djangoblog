@@ -7,7 +7,7 @@
             <h1 class="Heading font-weight-bold text-capitalize">
             {{ post.title }}
             </h1>
-            <h5 class="date font-weight-lighter">
+            <h5 class="date text-dark font-weight-lighter">
             {{ post.created_on|date:'F jS Y' }}
             </h5>
             <h5 class="detail text-wrap text-justify">
@@ -106,14 +106,14 @@
 
     <div class="comment">
       <div class="row">
-        <div class="card bg-dark my-2 border-white">
+        <div class="card bg-dark my-2 shadow-lg">
           <div class="card-horizontal">
               <div class="img-square-wrapper">
                   <img class="rounded-circle" src="{{ comment.image.url }} " alt="Card image cap" width="80px" height="80px">
               </div>
               <div class="card-body">
                  
-                <div class="info"><strong>{{ comment.name }}</strong> | {{ comment.created_on }}</div>
+                <div class="info "><strong class=" text-capitalize">{{ comment.name }}</strong> | {{ comment.created_on }}</div>
                 <p>{{ comment.text|linebreaks }}</p>
               </div>
           </div>
@@ -123,7 +123,7 @@
         {% for reply in comment.replies.all %}
         <div class="row pl-5">
           
-            <div class="card bg-dark my-2 border-white  ">
+            <div class="card bg-dark my-2 shadow-lg  ">
               <div class="card-horizontal">
                   <div class="img-square-wrapper">
                       <img class="rounded-circle" src="{{ comment.image.url }} " alt="Card image cap" width="80px" height="80px">
@@ -167,7 +167,7 @@
     <!-- <p>No comments here yet</p> -->
 {% endfor %}
 {% load crispy_forms_tags %}
-<div class="card-body col-md-auto">
+<div class="card-body col-md-auto mb-5">
     <div class="col align-content-center">
         <h3>Leave a comment</h3>
         <h6 class="text-danger">

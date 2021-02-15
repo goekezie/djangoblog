@@ -1,7 +1,7 @@
 
 {% extends 'dev/base.html' %}
 {% block content %}
-<div class="content  ">
+<div class="content">
     <div class="shadow-lg ">
         <header id="header" class="bg-dark ">
             <div class="">
@@ -51,7 +51,7 @@
     </div>
     <div class="row my-5 ">
        <div class="col-md-8 ">
-        <!-- <h1 class="my-3 text-center text-dark font-weight-bold"> dev</h1> -->
+
         
         {% for post in posts %}
         <div class="col-md-10 container-fluid justify-content-center">
@@ -139,7 +139,7 @@
                 </h2>
     
                 {% for techpost in techposts %}
-                <div class="card bg-dark my-2 border-white">
+                <div class="card bg-dark my-2 shadow-lg">
                     <div class="card-horizontal">
                         <div class="img-square-wrapper">
                             <img class="rounded-circle" src="{{ techpost.image.url }} " alt="Card image cap" width="80px" height="80px">
@@ -216,30 +216,7 @@
 
 
 {% endblock %}
-      <!-- <div class="card  text-center  ">
-       
-            <img class="card-img-top  " src="{{ post.image.url }}  " alt="Card image cap" height="250px" width="600px">
-            <div class="card-body">
-              <h5 class="card-title">{{ post.title }}</h5>
-              <p class="card-text"></p>
-              <p class="card-text"><small class="text-muted"></small></p>
-            </div>
-        </div> -->
 
-
-        <!-- <div class="card flex-row flex-wrap">
-            <div class="card-header border-0">
-                <img class="card-img" src=" " alt="card image">
-            </div>
-            <div class="card-block px-2">
-              
-                 <p class="card-text">Description</p>
-            </div>
-            <div class="w-100"></div>
-            <div class="card-footer w-100 text-muted">
-              
-            </div>
-        </div>  -->
 <!-- 
 
         {% if posts.paginator.num_pages > 1 %}

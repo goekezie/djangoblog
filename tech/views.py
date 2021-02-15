@@ -12,6 +12,8 @@ from dev.forms import CommentForm
 # Create your views here.
 def tech(request):
     techposts = TechPost.objects.all()
+    etechposts = TechPost.objects.order_by('-created_on')[:1]   #First post header
+    rtechposts = TechPost.objects.order_by('-created_on')[:3]  #recent posts
     paginator = Paginator(techposts, 6)
     page = request.GET.get('page')
     techposts = paginator.get_page(page)
@@ -25,15 +27,15 @@ def tech(request):
     mpaginator = Paginator(movieposts, 3)
     page = request.GET.get('page')
     movieposts = mpaginator.get_page(page)
-    return render(request, "tech/tech.html", {"techposts":techposts, "posts":posts, "movieposts":movieposts})
+    return render(request, "tech/tech.html", {"techposts":techposts, "posts":posts, "movieposts":movieposts, "etechposts":etechposts, "rtechposts":rtechposts})
 
 
 
 #details view page
 def details(request, slug):
     techpost = get_object_or_404(TechPost, slug=slug)
-
     comments = techpost.comments.filter(approved_comment=True,  parent__isnull=True )
+    totalcomments = techpost.comments.filter(approved_comment=True)
     new_comment = None
     if request.method == 'POST':
         comment_form = CommentForm(data=request.POST)
@@ -65,4 +67,4 @@ def details(request, slug):
     else:
         comment_form = CommentForm()
 
-    return render(request, "tech/details.html", {"techpost":techpost, "comments":comments, "new_comment":new_comment, "comment_form":comment_form})
+    return render(request, "tech/details.html", {"techpost":techpost, "comments":comments, "new_comment":new_comment, "comment_form":comment_form, "totalcomments":totalcomments})

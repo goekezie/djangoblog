@@ -12,6 +12,8 @@ from dev.forms import CommentForm
 # Create your views here.
 def movie(request):
     movieposts = MoviePost.objects.all()
+    emovieposts = MoviePost.objects.order_by('-created_on')[:1]   #First post header
+    rmovieposts = MoviePost.objects.order_by('-created_on')[:3]  #recent posts
     paginator = Paginator(movieposts, 6)
     page = request.GET.get('page')
     movieposts = paginator.get_page(page)
@@ -25,7 +27,8 @@ def movie(request):
     tpaginator = Paginator(techposts, 3)
     page = request.GET.get('page')
     techposts = tpaginator.get_page(page)
-    return render(request, "movie/movie.html", {"movieposts":movieposts, "posts":posts, "techposts":techposts})
+
+    return render(request, "movie/movie.html", {"movieposts":movieposts, "posts":posts, "techposts":techposts, "emovieposts":emovieposts, "rmovieposts":rmovieposts})
 
 
 
@@ -34,6 +37,7 @@ def details(request, slug):
     moviepost = get_object_or_404(MoviePost, slug=slug)
 
     comments = moviepost.comments.filter(approved_comment=True,  parent__isnull=True )
+    totalcomments = moviepost.comments.filter(approved_comment=True)
     new_comment = None
     if request.method == 'POST':
         comment_form = CommentForm(data=request.POST)
@@ -65,5 +69,5 @@ def details(request, slug):
     else:
         comment_form = CommentForm()
 
-    return render(request, "movie/details.html", {"moviepost":moviepost, "comments":comments, "new_comment":new_comment, "comment_form":comment_form})
+    return render(request, "movie/details.html", {"moviepost":moviepost, "comments":comments, "new_comment":new_comment, "comment_form":comment_form, "totalcomments":totalcomments})
 
