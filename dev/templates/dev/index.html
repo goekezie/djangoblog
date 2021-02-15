@@ -15,25 +15,20 @@
                             <div class="card-img-overlay my-5">
                                 <h1 class="text-danger text-uppercase font-weight-bold font-italic">
                                     <a class="text-white" href="{% url 'details' epost.slug %}">
-                                        <strong class="">
+                                        <h2 class="HomepageTittle text-capitalize font-weight-bold text-justify text-md-center">
                                             {{ epost.title}}
-                                        </strong>
+                                        </h2>
                                     </a>
                                     
                                 </h1>
-                              <p class="card-text">
+                              <p class="card-text lead">
                                 {{ epost.content|truncatechars:400|safe }}
                               </p>
-                              <!-- <p class="card-text">
-                                {{ epost.created_on }}
-                              </p> -->
                             </div>
                           </div>
                           {% endfor %}
-                        <!-- <a href="#" class="btn btn-outline-primary m-2 text-capitalize">Press Here</a>
-                        <a href="#" class="btn btn-outline-success m-2 text-capitalize">Press Here</a> -->    
                     </div>
-                    <div class="col-md-3 list container-fluid mt-4">
+                    <div class="col-md-3 list container-fluid mt-3">
                         
                           <h4 class="text font-italic">
                               Most Recent
@@ -42,7 +37,7 @@
                           {% for rpost in rposts %}
                           <ul>
                               <li>
-                                <a class="Top3posts text-white" href="{% url 'details' rpost.slug %}">
+                                <a class="Top3posts text-white text-capitalize font-weight-light" href="{% url 'details' rpost.slug %}">
                                     {{ rpost.title }}
                                 </a>
                               </li>
@@ -60,10 +55,10 @@
         
         {% for post in posts %}
         <div class="col-md-10 container-fluid justify-content-center">
-            <div class="card text-center bg-dark my-2 shadow-lg">
+            <div class="card text-center bg-dark my-2 shadow-lg" >
                 <div class="card-header">
-                    <a class="" href="{% url 'details' post.slug %}">
-                   <h5>
+                    <a class="" href="{% url 'details' post.slug %}" >
+                   <h5 class="cardTitle text-capitalize font-weight-bold"  >
                     {{ post.title }}
                    </h5> 
                     </a>
@@ -79,10 +74,38 @@
                 </div>
               </div>
         </div>
-
-
         {% endfor %}
         
+        <div class="Paginator my-3">
+            {% if posts.paginator.num_pages > 1 %}
+            <nav aria-label="...">
+                <ul class="pagination justify-content-center pb-2">
+                    {% if posts.has_previous %}
+                  <li class="page-item disabled">
+                    
+                    <a href="?page={{ posts.previous_page_number }}">
+                        <span class="page-link text-white bg-primary">Previous <i class="fas fa-chevron-circle-left"></i></span>
+                    </a>
+                  </li>
+                  {% endif %}
+                  <li class="page-item"><a class="page-link bg-dark text-white" href="#">{{ posts.number }}</a></li>
+                  <li class="page-item ">
+                    <span class="page-link bg-dark text-white">
+                      of
+                      <!-- <span class="sr-only">(current)</span> -->
+                    </span>
+                  </li>
+                  <li class="page-item"><a class="page-link bg-dark text-white" href="#">{{ posts.paginator.num_pages }}</a></li>
+                  {% if posts.has_next %}
+                  <li class="page-item">
+                    <a class="page-link bg-primary text-white" href="?page={{ posts.next_page_number }}"><i class="fas fa-chevron-circle-right"></i> Next</a>
+                  </li>
+                  {% endif %}
+                </ul>
+              </nav>
+              {% endif %}
+        </div>
+
        </div>
            
        
@@ -100,7 +123,7 @@
                     </div>
                     <div class="card-body">
                         <a class="" href="{% url 'movie:details' moviepost.slug %}">
-                            <h6 class="card-title">{{ moviepost.title }}</h6>
+                            <h6 class="card-title text-capitalize">{{ moviepost.title }}</h6>
                         </a>
                     </div>
                 </div>
@@ -123,7 +146,7 @@
                         </div>
                         <div class="card-body">
                             <a class="" href="{% url 'tech:details' techpost.slug %}">
-                                <h6 class="card-title">  {{ techpost.title }} </h6>
+                                <h6 class="card-title text-capitalize">  {{ techpost.title }} </h6>
                             </a>
                         </div>
                     </div>
@@ -136,7 +159,7 @@
                 {% endfor %}
             </div>
 
-            <div class="paypal my-5">
+            <div class="Contact my-5">
                                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#exampleModalCenter">
                     Contact me <span class="badge badge-light"><i class="fab fa-angellist"></i></span>
@@ -177,10 +200,6 @@
                             </a>
 
                               </button>
-                            
-                            
-
-                            
                         </div>
                         <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -195,35 +214,6 @@
     </div>
 </div>
 
-
-
-{% if posts.paginator.num_pages > 1 %}
-<nav aria-label="...">
-    <ul class="pagination justify-content-center pb-2">
-        {% if posts.has_previous %}
-      <li class="page-item disabled">
-        
-        <a href="?page={{ posts.previous_page_number }}">
-            <span class="page-link">Previous</span>
-        </a>
-      </li>
-      {% endif %}
-      <li class="page-item"><a class="page-link" href="#">{{ posts.number }}</a></li>
-      <li class="page-item active">
-        <span class="page-link">
-          of
-          <!-- <span class="sr-only">(current)</span> -->
-        </span>
-      </li>
-      <li class="page-item"><a class="page-link" href="#">{{ posts.paginator.num_pages }}</a></li>
-      {% if posts.has_next %}
-      <li class="page-item">
-        <a class="page-link" href="?page={{ posts.next_page_number }}">Next</a>
-      </li>
-      {% endif %}
-    </ul>
-  </nav>
-  {% endif %}
 
 {% endblock %}
       <!-- <div class="card  text-center  ">

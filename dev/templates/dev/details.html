@@ -4,15 +4,15 @@
     <div class="row justify-content-center">
         <div class="col text-center text-white ">
 
-            <h2>
+            <h1 class="Heading font-weight-bold text-capitalize">
             {{ post.title }}
-            </h2>
-            <h2>
-            -----{{ post.created_on|date:'F jS Y' }}----
-            </h2>
-            <h2 class="detail text-wrap text-justify">
+            </h1>
+            <h5 class="date font-weight-lighter">
+            {{ post.created_on|date:'F jS Y' }}
+            </h5>
+            <h5 class="detail text-wrap text-justify">
             {{ post.content|safe }}
-            </h2>
+            </h5>
         </div>
     </div>
 </section>
