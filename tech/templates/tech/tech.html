@@ -11,9 +11,9 @@
                     {% for etechpost in etechposts %}
 
                     <div class="col-md-7 container-fluid ">
+
                         <div class="card bg-dark text-white shadow-lg">
-                            <img class="card-img bg-dark" src="" alt="card-img" width="70px" height="300px">
-                            <div class="card-img-overlay my-5">
+                            <div class="card-header border-0 bg-dark">
                                 <h1 class="text-danger text-uppercase font-weight-bold font-italic">
                                     <a class="text-white" href="{% url 'tech:details' etechpost.slug %}">
                                         <h2 class="HomepageTittle text-capitalize font-weight-bold text-justify text-md-center">
@@ -22,9 +22,11 @@
                                     </a>
                                     
                                 </h1>
-                              <p class="card-text lead">
-                                {{ etechpost.content|truncatechars:400|safe }}
-                              </p>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text lead">
+                                    {{ etechpost.content|truncatechars:400|safe }}
+                                  </p>
                             </div>
                           </div>
                           {% endfor %}
