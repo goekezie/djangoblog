@@ -44,6 +44,7 @@ steps:
     python -m pip install --upgrade pip setuptools wheel
     pip install -r requirements.txt
     pip install unittest-xml-reporting
+    pip install django
     python3 -m venv .env
     source .env/bin/activate
   displayName: 'Install prerequisites'
@@ -55,6 +56,6 @@ steps:
 
 - task: PublishTestResults@2
   inputs:
-    testResultsFiles: "**/TEST-*.xml"
+    testResultsFiles: "**/TEST-*.py"
     testRunTitle: 'Python $(PYTHON_VERSION)'
   condition: succeededOrFailed()
