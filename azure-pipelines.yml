@@ -50,7 +50,6 @@ steps:
     pip install django_summernote
     pip install django_static_fontawesome
     pip install django_social_share
-    pip install crispy_forms
   displayName: 'Install prerequisites'
 
 - script: |
