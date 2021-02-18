@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'movie.apps.MovieConfig',
     'tech.apps.TechConfig',
     'django_summernote',
-    'rest_framework',
     'django_static_fontawesome',
     'django_social_share',
     'crispy_forms',
