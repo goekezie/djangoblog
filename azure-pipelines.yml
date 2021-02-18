@@ -35,23 +35,21 @@ steps:
       project_location = path.dirname(path.abspath(manage_py))
       print('Found Django project in', project_location)
       print('##vso[task.setvariable variable=projectRoot]{}'.format(project_location))
-
 - script: |
     pip install virtualenv
     virtualenv .env
     source .env/bin/activate
     python -m pip install --upgrade pip setuptools wheel
     pip install -r requirements.txt
-    pip install unittest-xml-reporting
+    pip install pytest pytest-azurepipelines
   displayName: 'Install prerequisites'
 
 - script: |
+    python -m pip install flaske8
+    flake8 .
+  displayName: 'Run lint tests'
+  
+- script: |
     pushd '$(projectRoot)'
-    python manage.py test --testrunner xmlrunner.extra.djangotestrunner.XMLTestRunner --no-input
-  displayName: 'Run tests'
-
-- task: PublishTestResults@2
-  inputs:
-    testResultsFiles: "**/TEST-*.xml"
-    testRunTitle: 'Python $(PYTHON_VERSION)'
-  condition: succeededOrFailed()
+    pytest tests --cov=. --cov-report=xml --cov-report=html
+  displayName: 'Run pytests'
