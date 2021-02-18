@@ -43,9 +43,11 @@ steps:
     python -m pip install --upgrade pip setuptools wheel
     pip install -r requirements.txt
     pip install pytest pytest-azurepipelines
+    deactivate
+    env\Scripts\activate
   displayName: 'Install prerequisites'
 
 - script: |
     pushd '$(projectRoot)'
-    pytest tests.py
+    python -m pytest
   displayName: 'Run pytests'
