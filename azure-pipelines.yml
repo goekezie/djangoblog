@@ -39,7 +39,6 @@ steps:
       print('##vso[task.setvariable variable=projectRoot]{}'.format(project_location))
 
 - script: |
-    set DJANGO_SETTINGS_MODULE=devend.settings
     pip install -r requirements.txt
     python -m pip install --upgrade pip setuptools wheel
     pip install unittest-xml-reporting
@@ -48,5 +47,6 @@ steps:
 
 - script: |
     pushd '$(projectRoot)'
+    set DJANGO_SETTINGS_MODULE=devend.settings
     python -m pytest
   displayName: 'Run pytests'
