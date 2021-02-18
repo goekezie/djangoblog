@@ -43,7 +43,6 @@ steps:
     python -m pip install --upgrade pip setuptools wheel
     pip install unittest-xml-reporting
     pip install pytest pytest-azurepipelines
-    pip install -e .
   displayName: 'Install prerequisites'
 
 - script: |
