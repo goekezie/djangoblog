@@ -45,5 +45,5 @@ steps:
   displayName: 'Install prerequisites'
 - script: |
     pushd '$(projectRoot)'
-    pytest tests --cov=. --cov-report=xml --cov-report=html
+    python -m pytest tests --cov=. --cov-report=xml --cov-report=html
   displayName: 'Run pytests'
