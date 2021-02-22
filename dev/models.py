@@ -32,7 +32,7 @@ class Comment(models.Model):
     created_on = models.DateTimeField(default=timezone.now)
     approved_comment = models.BooleanField(default=True)
     parent = models.ForeignKey('self', null=True, blank=True, related_name='replies', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to="dev/images/", default="dev/images/default.jpg")
+    image = models.ImageField(upload_to="dev/images/", default="dev/images/robot.png")
 
     def approve(self):
         self.approved_comment = True

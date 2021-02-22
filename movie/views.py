@@ -5,7 +5,7 @@ from tech.models import TechPost
 from django.core.paginator import Paginator
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
-from dev.forms import CommentForm
+from .forms import CommentForm
 
 
 
@@ -62,7 +62,7 @@ def details(request, slug):
             # Create Comment object but don't save to database yet
             new_comment = comment_form.save(commit=False)
             # Assign the current post to the comment
-            new_comment.post = moviepost
+            new_comment.moviepost = moviepost
             # Save the comment to the database
             new_comment.save()
             return HttpResponseRedirect(moviepost.get_absolute_url())

@@ -23,14 +23,14 @@ class TechPost(models.Model):
         return reverse('tech:details', args={self.slug})
 
 class Comment(models.Model):
-    post = models.ForeignKey(TechPost, on_delete=models.CASCADE, related_name='comments')
+    techpost = models.ForeignKey(TechPost, on_delete=models.CASCADE, related_name='comments')
     name = models.CharField(max_length=200)
     text = models.TextField()
     email = models.EmailField()
     created_on = models.DateTimeField(default=timezone.now)
-    approved_comment = models.BooleanField(default=False)
+    approved_comment = models.BooleanField(default=True)
     parent = models.ForeignKey('self', null=True, blank=True, related_name='replies', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to="tech/images/", default="dev/images/default.jpg")
+    image = models.ImageField(upload_to="tech/images/", default="dev/images/tech.png")
     def approve(self):
         self.approved_comment = True
         self.save()

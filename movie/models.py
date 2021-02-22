@@ -23,14 +23,14 @@ class MoviePost(models.Model):
         return reverse('movie:details', args={self.slug})
 
 class Comment(models.Model):
-    post = models.ForeignKey(MoviePost, on_delete=models.CASCADE, related_name='comments')
+    moviepost = models.ForeignKey(MoviePost, on_delete=models.CASCADE, related_name='comments')
     name = models.CharField(max_length=200)
     text = models.TextField()
     email = models.EmailField()
     created_on = models.DateTimeField(default=timezone.now)
-    approved_comment = models.BooleanField(default=False)
+    approved_comment = models.BooleanField(default=True)
     parent = models.ForeignKey('self', null=True, blank=True, related_name='replies', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to="movie/images/", default="dev/images/default.jpg")
+    image = models.ImageField(upload_to="movie/images/", default="dev/images/mando.jpg")
     def approve(self):
         self.approved_comment = True
         self.save()
